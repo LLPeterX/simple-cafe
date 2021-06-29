@@ -35,9 +35,13 @@ class ProductController {
   // get all products
   async getAll(req, res) {
     const { productTypeId, vegan, available } = req.query;
+    let { limit, page } = req.query;
+    limit = limit || 9;
+    page = page || 1;
+    let offset = page * limit - limit;
     let products;
     if (!productTypeId && !vegan && !available) {
-      products = await Product.findAll();
+      products = await Product.findAndCountAll({ limit, offset });
     } else {
       let selectOptions = {};
       if (productTypeId) {
@@ -49,12 +53,13 @@ class ProductController {
       if (available) {
         selectOptions.available = available;
       }
-      products = await Product.findAll({ where: selectOptions });
+      products = await Product.findAndCountAll({ where: selectOptions }, limit, offset);
 
     }
     return res.json(products);
   }
 
+  // получаем конкретный продукт по id
   async get() {
 
   }
