@@ -5,12 +5,15 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const sequelize = require('./db');
 const models = require('./models/models');
+const fileUpload = require('express-fileupload');
 const router = require('./routes/index');
 const errorHandler = require('./middleware/ErrorHandlerMiddleware');
+const path = require('path');
 
 app.use(cors());
 app.use(express.json());
-
+app.use(fileUpload({}));
+app.use(express.static(path.resolve(__dirname, "static")));
 app.use("/api", router);
 
 // должно быть в самом конце

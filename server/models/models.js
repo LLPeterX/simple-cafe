@@ -25,7 +25,7 @@ const BacketProduct = sequelize.define('backet_product', {
 
 const ProductType = sequelize.define('product_type', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  name: { type: DataTypes.STRING, unique: true, allowNull: false }
+  name: { type: DataTypes.STRING, unique: true, allowNull: false },
 }
 );
 
@@ -44,7 +44,6 @@ const Product = sequelize.define('product', {
 
 const ProductInfo = sequelize.define('product_info', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  //productId: { type: DataTypes.INTEGER },
   title: { type: DataTypes.STRING, allowNull: false },
   description: { type: DataTypes.STRING, allowNull: false },
 }
