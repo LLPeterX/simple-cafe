@@ -19,8 +19,7 @@ class TypeController {
   }
 
   async get(req, res) {
-    const id = req.query.id;
-    console.log('req=', req.query);
+    const { id } = req.params;
     const type = await ProductType.findByPk(id);
     return res.json(type);
 

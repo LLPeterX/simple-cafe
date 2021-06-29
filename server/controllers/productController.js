@@ -12,7 +12,7 @@
 */
 const uuid = require('uuid');
 const path = require('path');
-const { Product } = require('../models/models');
+const { Product, ProductInfo } = require('../models/models');
 const ApiError = require('../errors/apiError');
 //const { Op } = require('sequelize');
 
@@ -60,8 +60,15 @@ class ProductController {
   }
 
   // получаем конкретный продукт по id
-  async get() {
-
+  async get(req, res) {
+    const { id } = req.params;
+    const product = await Product.findOne(
+      {
+        where: { id },
+        include: [{ model: ProductInfo, as: 'product_info' }]
+      }
+    );
+    return res.json(product);
   }
 }
 
