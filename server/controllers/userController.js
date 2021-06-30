@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { User, Backet } = require('../models/models');
 
+
 // генерация токена авторизации
 const generateToken = (id, email, role) => {
   return jwt.sign(
@@ -29,13 +30,8 @@ class UserController {
     // сразу создам корзину для пользователя
     await Backet.create({ userId: user.id });
     // создаем токен авторизации
-    // const token = jwt.sign(
-    //   { id: user.id, email: user.email, role },
-    //   process.env.SECRET_KEY,
-    //   { expiresIn: '24h' }
-    // );
     const token = generateToken(user.id, user.email, user.role);
-    return res.json(token);
+    return res.json({ token });
   }
 
   async login(req, res, next) {
@@ -51,16 +47,15 @@ class UserController {
       return next(ApiError.forbidden('Неверный пароль'));
     }
     // генерируем и возвращаем новый токен
-    return res.json(generateToken(user.id, user.email, user.role));
+    const token = generateToken(user.id, user.email, user.role)
+    return res.json({ token });
   }
 
-  async checkAuth(req, res, next) {
-    const { id } = req.query;
-    if (!id) {
-      return next(ApiError.badRequest('Пользователь не залогинен'));
-    }
-    return res.json({ message: `Юзер зашел под ${id}` });
+  async checkAuth(req, res) {
+    const token = generateToken(req.user.id, req.user.email, req.user.role);
+    return res.json({ token });
   }
-}
+
+} // UserController
 
 module.exports = new UserController();
