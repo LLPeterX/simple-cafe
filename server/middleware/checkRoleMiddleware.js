@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const authMiddleware = require('./AuthMiddleware');
 
 module.exports = function (role) {
   return function (req, res, next) {
@@ -21,3 +20,4 @@ module.exports = function (role) {
       return res.status(401).json({ message: 'Пользователь не авторизован (middleware)' });
     }
   }
+}
