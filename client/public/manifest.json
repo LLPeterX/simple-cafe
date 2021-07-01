@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Simple Daur Cafe",
+  "name": "Sample remote cafe",
   "icons": [
     {
       "src": "favicon.ico",
