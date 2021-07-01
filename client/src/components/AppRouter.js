@@ -11,10 +11,10 @@ const AppRouter = () => {
   return (
     <Switch>
       {isAuth &&
-        authRoutes.map(({ path, Component }) => <Route key={path} path={path} component={Component} />)
+        authRoutes.map(({ path, Component }) => <Route exact key={path} path={path} component={Component} />)
       }
       {
-        publicRoutes.map(({ path, Component }) => <Route key={path} path={path} component={Component} />)
+        publicRoutes.map(({ path, Component }) => <Route exact key={path} path={path} component={Component} />)
       }
       <Redirect to={SHOP_ROUTE} />
     </Switch>
