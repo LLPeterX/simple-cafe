@@ -1,6 +1,7 @@
 const sequelize = require('../db');
 const { DataTypes } = require('sequelize');
 
+// Пользователь (клиент)
 const User = sequelize.define('user', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   email: { type: DataTypes.STRING, unique: true, allowNull: false },
@@ -9,26 +10,28 @@ const User = sequelize.define('user', {
 }
 );
 
-const Backet = sequelize.define('backet', {
+// Корзина пользвателя. Создаем при создании пользователя
+const Basket = sequelize.define('basket', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  //user_id: { type: DataTypes.INTEGER }, // User -> Backet
+  //userId: { type: DataTypes.INTEGER }, // User -> Basket
 }
 );
 
-const BacketProduct = sequelize.define('backet_product', {
+// Продукт в корзине пользователя. Включяя количество
+const BasketProduct = sequelize.define('backet_product', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  //backet_id: { type: DataTypes.INTEGER }, // 
-  //product_id: { type: DataTypes.INTEGER }, // Backet -> BacketProduct
   qty: { type: DataTypes.INTEGER, allowNull: false },
 }
 );
 
+// Тип продукта (первые блюда, вторые и т.п.)
 const ProductType = sequelize.define('product_type', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
 }
 );
 
+// Конкретный продукт
 const Product = sequelize.define('product', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
@@ -42,6 +45,7 @@ const Product = sequelize.define('product', {
 }
 );
 
+// Подробная информация о продукте
 const ProductInfo = sequelize.define('product_info', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   title: { type: DataTypes.STRING, allowNull: false },
@@ -49,25 +53,25 @@ const ProductInfo = sequelize.define('product_info', {
 }
 );
 
+// Рейтинг продукта
 const Rating = sequelize.define('rating', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  //userId: { type: DataTypes.INTEGER },
-  //productId: { type: DataTypes.INTEGER }
 }
 );
+
 // Внешние ключи
 
-// User -> Backet
-User.hasOne(Backet);
-Backet.belongsTo(User);
+// User -> Basket
+User.hasOne(Basket);
+Basket.belongsTo(User);
 
 //User -> Rating
 User.hasMany(Rating);
 Rating.belongsTo(User);
 
-// Backet -> BacketProduct
-Backet.hasMany(BacketProduct);
-BacketProduct.belongsTo(Backet);
+// Basket -> BasketProduct
+Basket.hasMany(BasketProduct);
+BasketProduct.belongsTo(Basket);
 
 // ProductType -> Product
 ProductType.hasMany(Product);
@@ -77,14 +81,14 @@ Product.belongsTo(ProductType);
 Product.hasMany(Rating);
 Rating.belongsTo(Product);
 
-//Product -> Backet
-Product.hasMany(BacketProduct);
-BacketProduct.belongsTo(Product);
+//Product -> Basket
+Product.hasMany(BasketProduct);
+BasketProduct.belongsTo(Product);
 
 // Product -> ProductInfo
 Product.hasOne(ProductInfo);
 ProductInfo.belongsTo(Product);
 
 module.exports = {
-  User, Backet, BacketProduct, ProductType, Product, ProductInfo, Rating
+  User, Basket, BasketProduct, ProductType, Product, ProductInfo, Rating
 }

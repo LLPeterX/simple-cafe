@@ -1,7 +1,7 @@
 const ApiError = require("../errors/apiError");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { User, Backet } = require('../models/models');
+const { User, Basket } = require('../models/models');
 
 
 // генерация токена авторизации
@@ -28,7 +28,7 @@ class UserController {
     const encryptedPassword = await bcrypt.hash(password, 5);
     const user = await User.create({ email, role, password: encryptedPassword });
     // сразу создам корзину для пользователя
-    await Backet.create({ userId: user.id });
+    await Basket.create({ userId: user.id });
     // создаем токен авторизации
     const token = generateToken(user.id, user.email, user.role);
     return res.json({ token });

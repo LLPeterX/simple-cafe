@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Backet = () => {
+const Basket = () => {
   return (
     <div>Корзина</div>
   );
 };
 
-export default Backet;
+export default Basket;
