@@ -6,10 +6,8 @@ import s from './item.module.css'
 
 const ProductItem = ({ product }) => {
   const history = useHistory();
-  console.log(history);
   return (
     <Col md={3} className={s.row} onClick={() => history.push(PRODUCT_ROUTE + '/' + product.id)}>
-      {/* <Card style={{ width: 150, cursor: "pointer" }} border="light"> */}
       <Card className={s.card} border="light">
         <Image src={product.img} width={150} />
         <div>{product.name}</div>
