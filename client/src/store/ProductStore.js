@@ -12,13 +12,18 @@ export default class ProductStore {
       { id: 6, name: "Алкогольные напитки" }
     ];
     this._products = [
-      { id: 1, name: "Борщ", price: 120.50, rating: 5, img: '2283cf6c-8d78-4060-a261-ff36169a236b.jpg', vegan: 0, available: 1, productTypeId: 1 },
-      { id: 2, name: "Лапша куриная", price: 80, rating: 5, img: '5e0f0188-44e5-497f-8538-467e8f06d9a0.jpg', vegan: 0, available: 1, productTypeId: 1 },
-      { id: 4, name: "Овощной суп", price: 60.80, rating: 3, img: '3bd6ad36-419c-4668-8004-3ad68fb19625.jpg', vegan: 1, available: 1, productTypeId: 1 },
-      { id: 5, name: "Шашлык из свинины", price: 270.00, rating: 5, img: '3fba7b9f-af7c-4a96-8b42-09d4e6d04a91.jpg', vegan: 0, available: 1, productTypeId: 2 },
-      { id: 6, name: "Овощной шашлык", price: 125.00, rating: 2, img: '30496c6a-0f92-4cbc-93b0-11a071914a69.jpg', vegan: 1, available: 0, productTypeId: 2 },
-      { id: 7, name: "Бутерброд с сыром", price: 50.00, rating: 4, img: '30496c6a-0f92-4cbc-93b0-11a071914a69.jpg', vegan: 1, available: 1, productTypeId: 4 },
+      { id: 1, name: "Борщ", price: 120.50, rating: 5, img: 'test.jpg', vegan: 0, available: 1, productTypeId: 1 },
+      { id: 2, name: "Лапша куриная", price: 80, rating: 5, img: 'test.jpg', vegan: 0, available: 1, productTypeId: 1 },
+      { id: 4, name: "Овощной суп", price: 60.80, rating: 3, img: 'test.jpg', vegan: 1, available: 1, productTypeId: 1 },
+      { id: 5, name: "Шашлык из свинины", price: 270.00, rating: 5, img: 'test.jpg', vegan: 0, available: 1, productTypeId: 2 },
+      { id: 6, name: "Овощной шашлык", price: 125.00, rating: 2, img: 'test.jpg', vegan: 1, available: 0, productTypeId: 2 },
+      { id: 7, name: "Бутерброд с сыром", price: 50.00, rating: 4, img: 'test.jpg', vegan: 1, available: 1, productTypeId: 4 },
+      { id: 8, name: "Салат с помидорами и огурцами", price: 150.00, rating: 3, img: 'test.jpg', vegan: 1, available: 0, productTypeId: 3 },
+      { id: 9, name: "Кагор", price: 288.00, rating: 5, img: 'test.jpg', vegan: 0, available: 1, productTypeId: 6 },
+      { id: 10, name: "Компот ягодный", price: 90.00, rating: 5, img: 'test.jpg', vegan: 1, available: 1, productTypeId: 5 },
     ];
+    this._selectedType = {};
+    this._vegan = 0;
     makeAutoObservable(this);
   }
 
@@ -30,12 +35,27 @@ export default class ProductStore {
     this._products = products
   }
 
+  setSelectedType(type) {
+    this._selectedType = type;
+  }
+  setVegan(v) {
+    this._vegan = v;
+  }
+
   get types() {
     return this._types;
   }
 
   get products() {
     return this._products;
+  }
+
+  get selectedType() {
+    return this._selectedType;
+  }
+
+  get vegan() {
+    return this._vegan;
   }
 
 }

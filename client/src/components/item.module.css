@@ -1,0 +1,7 @@
+.row {
+  margin: 20px;
+}
+.card {
+  width: 150;
+  cursor: "pointer";
+}
