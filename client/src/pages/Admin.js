@@ -13,7 +13,7 @@ const Admin = () => {
   const hideProductModal = () => setProductModalVisible(false);
   return (
     <Container>
-      <Row className="mt-2"></Row>
+      <Row className="mt-2">
         <Col md={3}>
           <TypeBar />
           <Button className="mt-2" onClick={() => setTypeModalVisible(true)}>Добавить тип продукта</Button>
@@ -50,12 +50,12 @@ const Admin = () => {
               }
             </tbody>
           </Table>
-          <Button className="mt-2 align-self-end" onClick={() => setProductModalVisible(true)}>Сохранить</Button>
+          <Button className="mt-2 align-self-end" onClick={() => setProductModalVisible(true)}>Добавить новый продукт</Button>
         </Col>
       </Row>
       <EditType show={typeModalVisible} onHide={hideTypeModal} />
       <EditProduct show={productModalVisible} onHide={hideProductModal} />
-    </Container >
+    </Container>
   );
 };
 

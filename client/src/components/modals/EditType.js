@@ -23,7 +23,7 @@ const EditType = ({ show, onHide, productType }) => {
       </Modal.Body>
       <Modal.Footer>
         <Button variant="danger" onClick={onHide}>Закрть</Button>
-        <Button variant="success" onClick={onHide}>Добавить</Button>
+        <Button variant="success" onClick={onHide}>{productType ? "Сохранить изменения" : "Добавить"}</Button>
       </Modal.Footer>
     </Modal>
   );
