@@ -13,7 +13,7 @@ const EditType = ({ show, onHide, productType }) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          {productType ? "Редактирование типа продука" : "Добавление нового типа"}
+          {productType ? "Редактирование типа продукта" : "Добавление нового типа"}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
