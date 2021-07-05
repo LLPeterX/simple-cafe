@@ -1,13 +1,15 @@
 import React from "react"
 import { Navbar, Nav, Button, NavLink } from 'react-bootstrap'
 import { Context } from ".."
-import { SHOP_ROUTE } from "../utils/constants"
+import { ADMIN_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from "../utils/constants"
 import { observer } from 'mobx-react-lite'
+import { useHistory } from "react-router-dom"
 import s from './navbar.module.css'
 
 // чтобы MobX следил за изменением стейта user, оборачиваем JSX в observer()
 const NavBar = observer(() => {
   const { user } = React.useContext(Context);
+  const history = useHistory();
   return (
     // <Navbar bg="light" expand="lg" > // нужно "схлопывание" сделать поменьше
     <Navbar bg="light" expand="sm">
@@ -15,8 +17,16 @@ const NavBar = observer(() => {
       {
         user.isAuth ?
           <Nav className="ml-auto">
-            <Button className={s.btn} onClick={() => console.log('CALL ADMIN PANEL')}>Администрирование</Button>
-            <Button className={s.btn} onClick={() => user.setIsAuth(false)}>Выход</Button>
+            <Button className={s.btn} onClick={() => {
+              console.log('CALL ADMIN PANEL', ADMIN_ROUTE);
+              history.push(ADMIN_ROUTE);
+
+            }}>Администрирование</Button>
+            <Button className={s.btn} onClick={() => {
+              user.setIsAuth(false);
+              history.push(LOGIN_ROUTE);
+              console.log('LOGOUT');
+            }}>Выход</Button>
           </Nav>
           :
           <Nav className="ml-auto">
