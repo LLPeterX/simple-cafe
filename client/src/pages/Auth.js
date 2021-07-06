@@ -1,11 +1,41 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Container, Form, Card, Button } from 'react-bootstrap'
-import { NavLink, useLocation } from 'react-router-dom'
-import { REGISTRATION_ROUTE, LOGIN_ROUTE } from '../utils/constants'
+import { NavLink, useLocation, useHistory } from 'react-router-dom'
+import { REGISTRATION_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from '../utils/constants'
+import { registration, login } from '../http/userAPI'
+import { observer } from 'mobx-react-lite'
+import { Context } from '../index'
 
-const Auth = () => {
+
+const Auth = observer(() => {
+  const { user } = React.useContext(Context);
+  // Определяем по URL, где мы находимся.
+  // Если "/login", то это вход, иначе - регистрация
   const location = useLocation();
   const isLogin = location.pathname === LOGIN_ROUTE; // true/false
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const history = useHistory();
+
+  const handleLogin = async () => {
+    try {
+      let data;
+      if (isLogin) {
+        data = await login(email, password);
+      } else {
+        data = await registration(email, password);
+      }
+      user.setUser(user);
+      user.setAuth(true);
+      history.push(SHOP_ROUTE);
+      console.log('signIn resp:', data);
+    } catch (e) {
+      console.log('error:', e);
+      //alert(e.response.data.message);
+    }
+
+
+  }
 
   return (
     <Container
@@ -18,12 +48,16 @@ const Auth = () => {
           <Form.Control
             className="mt-2"
             placeholder="e-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <Form.Control
             className="mt-3"
             placeholder="пароль"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
-          <Button variant="success" className="mt-3">{isLogin ? "Войти" : "Зарегистрироваться"}</Button>
+          <Button variant="success" className="mt-3" onClick={handleLogin}>{isLogin ? "Войти" : "Зарегистрироваться"}</Button>
           {isLogin ?
             <div className="mt-3 align-self-center">
               Нет аккаунта?
@@ -40,6 +74,6 @@ const Auth = () => {
 
     </Container>
   );
-};
+});
 
 export default Auth;

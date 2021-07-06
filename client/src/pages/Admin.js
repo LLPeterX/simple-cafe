@@ -11,6 +11,7 @@ const Admin = () => {
   const [productModalVisible, setProductModalVisible] = useState(false);
   const hideTypeModal = () => setTypeModalVisible(false);
   const hideProductModal = () => setProductModalVisible(false);
+  console.log('api4:', process.env.REACT_APP_API_URL);
   return (
     <Container>
       <Row className="mt-2">

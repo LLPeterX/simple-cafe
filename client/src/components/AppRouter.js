@@ -10,7 +10,6 @@ import { SHOP_ROUTE } from '../utils/constants';
 const AppRouter = () => {
   //const isAuth = true;
   const { user } = React.useContext(Context);
-  console.log(user);
   return (
     <Switch>
       {user.isAuth &&

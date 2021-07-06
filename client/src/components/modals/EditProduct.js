@@ -32,7 +32,7 @@ const EditProduct = ({ show, onHide, currentProduct }) => {
       <Modal.Body>
         <Form>
           <Form.Control className="mt-2" placeholder="Наименование продукта"
-            value={name} />
+            value={name} onChange={(e) => setName(e.target.value)} />
           {/* <InputGroup className="mb-3">
             <InputGroup.Text id="type">Тип</InputGroup.Text>
             <Form.Control
@@ -58,6 +58,7 @@ const EditProduct = ({ show, onHide, currentProduct }) => {
               aria-label="price"
               aria-describedby="price"
               value={price}
+              onChange={(e) => setPrice(e.target.value)}
             />
           </InputGroup>
 
@@ -87,7 +88,9 @@ const EditProduct = ({ show, onHide, currentProduct }) => {
             />
           </InputGroup> */}
           <Form.Control className="mt-2" type="textarea" placeholder="Описание"
-            value={description} />
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
 
         </Form>
       </Modal.Body>

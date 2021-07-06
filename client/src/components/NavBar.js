@@ -10,27 +10,29 @@ import s from './navbar.module.css'
 const NavBar = observer(() => {
   const { user } = React.useContext(Context);
   const history = useHistory();
+
+  const logOut = () => {
+    user.setUser({});
+    user.setAuth(false);
+    history.push(LOGIN_ROUTE);
+    console.log('LOGOUT');
+  }
+
   return (
-    // <Navbar bg="light" expand="lg" > // нужно "схлопывание" сделать поменьше
     <Navbar bg="light" expand="sm">
       <NavLink to={SHOP_ROUTE} className="container-fluid">Кафе Даур</NavLink>
       {
         user.isAuth ?
           <Nav className="ml-auto">
             <Button className={s.btn} onClick={() => {
-              console.log('CALL ADMIN PANEL', ADMIN_ROUTE);
               history.push(ADMIN_ROUTE);
-
             }}>Администрирование</Button>
-            <Button className={s.btn} onClick={() => {
-              user.setIsAuth(false);
-              history.push(LOGIN_ROUTE);
-              console.log('LOGOUT');
-            }}>Выход</Button>
+            <Button className={s.btn} onClick={logOut}>Выход</Button>
           </Nav>
           :
           <Nav className="ml-auto">
-            <Button className={s.btn} onClick={() => user.setIsAuth(true)}>Вход</Button>
+            {/* <Button className={s.btn} onClick={() => user.setAuth(true)}>Вход</Button> */}
+            <Button className={s.btn} onClick={() => history.push(LOGIN_ROUTE)}>Вход</Button>
           </Nav>
       }
     </Navbar >
