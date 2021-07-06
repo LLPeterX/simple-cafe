@@ -15,6 +15,7 @@ const Admin = () => {
     <Container>
       <Row className="mt-2">
         <Col md={3}>
+          <h3>Типы продуктов</h3>
           <TypeBar />
           <Button className="mt-2" onClick={() => setTypeModalVisible(true)}>Добавить тип продукта</Button>
         </Col>

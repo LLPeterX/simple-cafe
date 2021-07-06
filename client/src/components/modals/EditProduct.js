@@ -8,6 +8,10 @@ const EditProduct = ({ show, onHide, currentProduct }) => {
   const [isVegan, setVegan] = useState(0);
   const [isAvailable, setAvailable] = useState(1);
   const [typeName, setTypeName] = useState("Выберите тип блюда");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState(0.00);
+  const [name, setName] = useState("");
+
   // handler for select type
   const handleSelectType = (key, e) => {
     setTypeName(e.target.textContent);
@@ -27,7 +31,8 @@ const EditProduct = ({ show, onHide, currentProduct }) => {
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <Form.Control className="mt-2" placeholder="Наименование продукта" />
+          <Form.Control className="mt-2" placeholder="Наименование продукта"
+            value={name} />
           {/* <InputGroup className="mb-3">
             <InputGroup.Text id="type">Тип</InputGroup.Text>
             <Form.Control
@@ -52,6 +57,7 @@ const EditProduct = ({ show, onHide, currentProduct }) => {
               placeholder="0.00"
               aria-label="price"
               aria-describedby="price"
+              value={price}
             />
           </InputGroup>
 
@@ -69,7 +75,7 @@ const EditProduct = ({ show, onHide, currentProduct }) => {
             />
           </Form.Group>
 
-          <Form.Group className="mt-2">
+          <Form.Group className="mt-2" controlId="img">
             <Form.File id="img" label="Изображение:  " />
           </Form.Group>
           {/* <InputGroup className="mt-2">
@@ -80,6 +86,8 @@ const EditProduct = ({ show, onHide, currentProduct }) => {
               aria-describedby="rating"
             />
           </InputGroup> */}
+          <Form.Control className="mt-2" type="textarea" placeholder="Описание"
+            value={description} />
 
         </Form>
       </Modal.Body>
