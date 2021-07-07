@@ -10,14 +10,13 @@ import { Context } from './index'
 const App = observer(() => {
   const user = useContext(Context);
   const [loading, setLoading] = useState(true);
-
+  console.log('API URL=', process.env.REACT_APP_API_URL);
   useEffect(() => checkAuth().then(data => {
     user.setUser(true);
     user.setAuth(true);
   }).finally(() => {
-    setLoading(false);
-  }),
-    []);
+    setLoading(false); // eslint-disable-next-line
+  }), []);
 
   if (loading) {
     return <Spinner animation="grow" />

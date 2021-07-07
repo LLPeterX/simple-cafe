@@ -5,12 +5,16 @@ import ProductList from '../components/ProductList';
 import TypeBar from '../components/TypeBar';
 import FiltersBar from '../components/FiltersBar';
 import { Context } from '../index'
-import { fetchTypes } from '../http/productAPI';
+import { fetchTypes, fetchProducts } from '../http/productAPI';
 
 const Shop = observer(() => {
   const { product } = useContext(Context);
   useEffect(() => {
     fetchTypes().then(data => product.setTypes(data));
+    fetchProducts().then(({ count, rows }) => {
+      console.log('fetch:', count, rows);
+      product.setProducts(rows);
+    }); // eslint-disable-next-line
   }, []);
 
   return (

@@ -9,7 +9,7 @@ const ProductItem = ({ product }) => {
   return (
     <Col md={3} className={s.row} onClick={() => history.push(PRODUCT_ROUTE + '/' + product.id)}>
       <Card className={s.card} border="light">
-        <Image src={product.img} width={150} />
+        <Image src={`${process.env.REACT_APP_API_URL}/${product.img}`} width={150} />
         <div>{product.name}</div>
         <div>
           <div>{product.rating}</div>

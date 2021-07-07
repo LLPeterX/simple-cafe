@@ -13,3 +13,20 @@ export const fetchTypes = async () => {
   return data;
 
 };
+
+// создание типа. Нужен авторизованный пользователь, поэтому на authHost
+export const createProduct = async (product) => {
+  const { data } = await $authHost.post('api/product', product);
+  return data;
+
+};
+// Получение всего списка типов продуктов
+export const fetchProducts = async () => {
+  const { data } = await $host.get('api/product');
+  return data;
+};
+
+export const fetchOneProduct = async (id) => {
+  const { data } = await $host.get(`api/product/${id}`);
+  return data;
+};
