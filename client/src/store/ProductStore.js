@@ -3,14 +3,15 @@ import { makeAutoObservable } from 'mobx';
 export default class ProductStore {
   constructor() {
     // временно, пока для проверки
-    this._types = [
-      { id: 1, name: "Первые блюда" },
-      { id: 2, name: "Вторые блюда" },
-      { id: 3, name: "Салаты" },
-      { id: 4, name: "Закуски" },
-      { id: 5, name: "Безалкогольные напитки" },
-      { id: 6, name: "Алкогольные напитки" }
-    ];
+    // this._types = [
+    //   { id: 1, name: "Первые блюда" },
+    //   { id: 2, name: "Вторые блюда" },
+    //   { id: 3, name: "Салаты" },
+    //   { id: 4, name: "Закуски" },
+    //   { id: 5, name: "Безалкогольные напитки" },
+    //   { id: 6, name: "Алкогольные напитки" }
+    // ];
+    this._types = [];
     this._products = [
       { id: 1, name: "Борщ", price: 120.50, rating: 5, img: 'test.jpg', vegan: 0, available: 1, productTypeId: 1 },
       { id: 2, name: "Лапша куриная", price: 80, rating: 5, img: 'test.jpg', vegan: 0, available: 1, productTypeId: 1 },
