@@ -5,7 +5,6 @@ import { observer } from 'mobx-react-lite'
 
 const FiltersBar = observer(() => {
   const { product } = React.useContext(Context);
-  console.log(product.vegan);
   return (
     <Row>
       <Form>

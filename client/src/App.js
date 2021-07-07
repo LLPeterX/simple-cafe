@@ -12,8 +12,12 @@ const App = observer(() => {
   const [loading, setLoading] = useState(true);
   console.log('API URL=', process.env.REACT_APP_API_URL);
   useEffect(() => checkAuth().then(data => {
-    user.setUser(true);
-    user.setAuth(true);
+    try {
+      user.setUser(true);
+      user.setAuth(true);
+    } catch (e) {
+      // nothing to do
+    }
   }).finally(() => {
     setLoading(false); // eslint-disable-next-line
   }), []);

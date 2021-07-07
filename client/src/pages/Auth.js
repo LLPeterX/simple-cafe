@@ -19,16 +19,15 @@ const Auth = observer(() => {
 
   const handleLogin = async () => {
     try {
-      let data;
+      //      let data;
       if (isLogin) {
-        data = await login(email, password);
+        await login(email, password);
       } else {
-        data = await registration(email, password);
+        await registration(email, password);
       }
       user.setUser(user);
       user.setAuth(true);
       history.push(SHOP_ROUTE);
-      console.log('signIn resp:', data);
     } catch (e) {
       console.log('error:', e);
       //alert(e.response.data.message);
