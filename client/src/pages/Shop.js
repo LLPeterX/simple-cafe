@@ -11,8 +11,8 @@ const Shop = observer(() => {
   const { product } = useContext(Context);
   useEffect(() => {
     fetchTypes().then(data => product.setTypes(data));
-    fetchProducts().then((data) => product.setProducts(data.rows)); // eslint-disable-next-line
-  }, []);
+    fetchProducts().then((data) => product.setProducts(data.rows));
+  }, [product]);
 
   return (
     <Container>

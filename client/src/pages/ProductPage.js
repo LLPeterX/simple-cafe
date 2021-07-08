@@ -1,5 +1,5 @@
 /* 
-Информация о конкретном продукте и возможность добавиь в корзину
+Информация о конкретном продукте и возможность добавить в корзину
 */
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
@@ -9,11 +9,14 @@ import s from './productPage.module.css'
 import { fetchOneProduct } from '../http/productAPI'
 
 const ProductPage = () => {
+  // стейт с информацией о текущем продукте. Получаем его ниже в useEffect()
   const [product, setProduct] = useState({ info: "" });
-  const { id } = useParams();
+  const { id } = useParams(); // берем id из URL типа /product/:id
+
   useEffect(() => {
     fetchOneProduct(id).then(data => setProduct(data))
-  }, []);
+  }, [id]);
+
   return (
     <Container className="mt-3">
       <Row>

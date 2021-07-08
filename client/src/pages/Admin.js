@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import { observer } from 'mobx-react-lite'
 import { Container, Row, Col, Button, Table } from 'react-bootstrap'
 import EditType from '../components/modals/EditType';
 import EditProduct from '../components/modals/EditProduct';
@@ -9,9 +10,14 @@ const Admin = () => {
   const { product } = useContext(Context);
   const [typeModalVisible, setTypeModalVisible] = useState(false);
   const [productModalVisible, setProductModalVisible] = useState(false);
-  const hideTypeModal = () => setTypeModalVisible(false);
+
+  const hideTypeModal = () => {
+    setTypeModalVisible(false);
+    window.location.reload(); // тут все данные исчезают
+  }
+
   const hideProductModal = () => setProductModalVisible(false);
-  console.log('api4:', process.env.REACT_APP_API_URL);
+  console.log('Admin prod', product.products.length);
   return (
     <Container>
       <Row className="mt-2">
@@ -33,6 +39,7 @@ const Admin = () => {
                 <th>Веган</th>
                 <th>В наличии</th>
                 <th>Рейтинг</th>
+                <th>test</th>
               </tr>
             </thead>
             <tbody>
@@ -43,7 +50,7 @@ const Admin = () => {
                       <td>{p.id}</td>
                       <td>{p.name}</td>
                       <td>{p.productTypeId}</td>
-                      <td>{p.price.toFixed(2)}</td>
+                      <td>{p.price}</td>
                       <td>{p.vegan}</td>
                       <td>{p.available}</td>
                       <td>{p.rating}</td>

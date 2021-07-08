@@ -8,15 +8,15 @@ import { checkAuth } from "./http/userAPI";
 import { Context } from './index'
 
 const App = observer(() => {
-  const user = useContext(Context);
+  const { user } = useContext(Context);
   const [loading, setLoading] = useState(true);
-  console.log('API URL=', process.env.REACT_APP_API_URL);
+  //console.log('API URL=', process.env.REACT_APP_API_URL, 'user=', user);
   useEffect(() => checkAuth().then(data => {
     try {
-      user.setUser(true);
+      user.setUser(data);
       user.setAuth(true);
     } catch (e) {
-      // nothing to do
+      console.log('App useEffect() error:', e);
     }
   }).finally(() => {
     setLoading(false); // eslint-disable-next-line

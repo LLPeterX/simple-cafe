@@ -29,8 +29,8 @@ const Auth = observer(() => {
       user.setAuth(true);
       history.push(SHOP_ROUTE);
     } catch (e) {
-      console.log('error:', e);
-      //alert(e.response.data.message);
+      console.log('login error:', e);
+      alert(e.response.data.message);
     }
 
 

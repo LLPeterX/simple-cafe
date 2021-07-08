@@ -15,18 +15,19 @@ const NavBar = observer(() => {
     user.setUser({});
     user.setAuth(false);
     history.push(LOGIN_ROUTE);
-    console.log('LOGOUT');
   }
 
+  // const adminPanel = () => {
+  //   //console.log('CALL ADMIN', user.isAuth, 'route=', ADMIN_ROUTE);
+  //   history.push(ADMIN_ROUTE);
+  // }
   return (
     <Navbar bg="light" expand="sm">
       <NavLink to={SHOP_ROUTE} className="container-fluid">Кафе Даур</NavLink>
       {
         user.isAuth ?
           <Nav className="ml-auto">
-            <Button className={s.btn} onClick={() => {
-              history.push(ADMIN_ROUTE);
-            }}>Администрирование</Button>
+            <Button className={s.btn} onClick={() => history.push(ADMIN_ROUTE)}>Администрирование</Button>
             <Button className={s.btn} onClick={logOut}>Выход</Button>
           </Nav>
           :
