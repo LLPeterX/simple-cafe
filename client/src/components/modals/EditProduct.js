@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Modal, Button, Form, InputGroup, DropdownButton, Dropdown } from 'react-bootstrap'
+import { Modal, Button, Form, InputGroup, Dropdown } from 'react-bootstrap'
 import { Context } from "../../index"
 
 const EditProduct = ({ show, onHide, currentProduct }) => {
@@ -16,6 +16,7 @@ const EditProduct = ({ show, onHide, currentProduct }) => {
   const handleSelectType = (key, e) => {
     setTypeName(e.target.textContent);
   }
+
   return (
     <Modal
       show={show}
@@ -33,14 +34,7 @@ const EditProduct = ({ show, onHide, currentProduct }) => {
         <Form>
           <Form.Control className="mt-2" placeholder="Наименование продукта"
             value={name} onChange={(e) => setName(e.target.value)} />
-          {/* <InputGroup className="mb-3">
-            <InputGroup.Text id="type">Тип</InputGroup.Text>
-            <Form.Control
-              placeholder="1"
-              aria-describedby="type"
-            />
-          </InputGroup> */}
-          <DropdownButton
+          {/* <DropdownButton
             title={typeName}
             id="title"
             className="mt-2 mb-2"
@@ -50,7 +44,22 @@ const EditProduct = ({ show, onHide, currentProduct }) => {
               product.types.map(p => <Dropdown.Item key={p.id} eventKey={p.id} value={p.id}>{p.name}</Dropdown.Item>)
             }
 
-          </DropdownButton>
+          </DropdownButton> */}
+          <Dropdown className="mt-2">
+            <Dropdown.Toggle>{typeName.length ? typeName : "Выберите тип блюда"}</Dropdown.Toggle>
+            <Dropdown.Menu>
+              {
+                product.types.map(p =>
+                  <Dropdown.Item
+                    key={p.id}
+                    eventKey={p.id}
+                    value={p.id}
+                    onChange={handleSelectType}
+                  >{p.name}</Dropdown.Item>)
+              }
+            </Dropdown.Menu>
+
+          </Dropdown>
           <InputGroup className="mt-2">
             <InputGroup.Text id="price">Цена</InputGroup.Text>
             <Form.Control

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { observer } from 'mobx-react-lite'
+//import { observer } from 'mobx-react-lite'
 import { Container, Row, Col, Button, Table } from 'react-bootstrap'
 import EditType from '../components/modals/EditType';
 import EditProduct from '../components/modals/EditProduct';
@@ -11,12 +11,13 @@ const Admin = () => {
   const [typeModalVisible, setTypeModalVisible] = useState(false);
   const [productModalVisible, setProductModalVisible] = useState(false);
 
-  const hideTypeModal = () => {
-    setTypeModalVisible(false);
-    window.location.reload(); // тут все данные исчезают
-  }
+  // Косяк: при вызове обновления страницы product очищается - WTF?
+  // const hideTypeModal = () => {
+  //   setTypeModalVisible(false);
+  //   window.location.reload(); // тут все данные исчезают
+  // }
 
-  const hideProductModal = () => setProductModalVisible(false);
+  // const hideProductModal = () => setProductModalVisible(false);
   console.log('Admin prod', product.products.length);
   return (
     <Container>
@@ -62,8 +63,8 @@ const Admin = () => {
           <Button className="mt-2 align-self-end" onClick={() => setProductModalVisible(true)}>Добавить новый продукт</Button>
         </Col>
       </Row>
-      <EditType show={typeModalVisible} onHide={hideTypeModal} />
-      <EditProduct show={productModalVisible} onHide={hideProductModal} />
+      <EditType show={typeModalVisible} onHide={() => setTypeModalVisible(false)} />
+      <EditProduct show={productModalVisible} onHide={() => setProductModalVisible(false)} />
     </Container>
   );
 };
