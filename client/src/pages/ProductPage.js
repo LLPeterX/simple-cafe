@@ -4,7 +4,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Container, Col, Row, Image, Card, Button } from 'react-bootstrap'
-//import star from '../assets/star--v1.png'
 import s from './productPage.module.css'
 import { fetchOneProduct } from '../http/productAPI'
 

@@ -1,16 +1,21 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 //import { observer } from 'mobx-react-lite'
 import { Container, Row, Col, Button, Table } from 'react-bootstrap'
-import EditType from '../components/modals/EditType';
-import EditProduct from '../components/modals/EditProduct';
-import TypeBar from '../components/TypeBar';
+import EditType from '../components/modals/EditType'
+import EditProduct from '../components/modals/EditProduct'
+//import TypeBar from '../components/TypeBar';
 import { Context } from "../index"
+import { fetchTypes, fetchProducts } from '../http/productAPI'
 
 const Admin = () => {
   const { product } = useContext(Context);
   const [typeModalVisible, setTypeModalVisible] = useState(false);
   const [productModalVisible, setProductModalVisible] = useState(false);
 
+  useEffect(() => {
+    fetchTypes().then(data => product.setTypes(data));
+    fetchProducts().then((data) => product.setProducts(data.rows));
+  }, [product]);
   // Косяк: при вызове обновления страницы product очищается - WTF?
   // const hideTypeModal = () => {
   //   setTypeModalVisible(false);
@@ -24,7 +29,11 @@ const Admin = () => {
       <Row className="mt-2">
         <Col md={3}>
           <h3>Типы продуктов</h3>
-          <TypeBar />
+          <ul>
+            {
+              product.types.map(item => <li key={item.id}>{item.id}: {item.name}</li>)
+            }
+          </ul>
           <Button className="mt-2" onClick={() => setTypeModalVisible(true)}>Добавить тип продукта</Button>
         </Col>
         <Col md={9}>
