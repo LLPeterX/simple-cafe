@@ -9,13 +9,13 @@ export default class ProductStore {
     this._page = 1; // текущая страница
     this._totalCount = 0; // число товаров, доступных по данному запросу
     this._limit = 3; // количество продуктов, отображаемых на странице
+    this.defaultType = { id: 0, name: "Все" };
     makeAutoObservable(this);
   }
 
   setTypes(types) {
     if (!types.find(t => t.id === 0)) {
-      //types.unshift({ id: 0, name: "Все" });
-      this._types = [{ id: 0, name: "Все" }, ...types];
+      this._types = [this.defaultType, ...types];
     } else {
       this._types = types;
     }

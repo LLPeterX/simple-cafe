@@ -13,9 +13,14 @@ const Admin = () => {
   const [productModalVisible, setProductModalVisible] = useState(false);
 
   useEffect(() => {
-    fetchTypes().then(data => product.setTypes(data));
-    fetchProducts().then((data) => product.setProducts(data.rows));
-  }, [product]);
+    fetchTypes().then(data => {
+      product.setTypes(data);
+      product.setSelectedType({});
+    }
+    );
+    // fetchProducts(page = 1, limit = 3, productTypeId, vegan, available)
+    fetchProducts(1, 999, 0, null, null).then((data) => product.setProducts(data.rows));
+  }, [product.products, product.types]);
   // Косяк: при вызове обновления страницы product очищается - WTF?
   // const hideTypeModal = () => {
   //   setTypeModalVisible(false);
@@ -23,7 +28,7 @@ const Admin = () => {
   // }
 
   // const hideProductModal = () => setProductModalVisible(false);
-  console.log('Admin prod', product.products.length);
+  console.log('Admin prod', product.products.length, 'sel=', product.selectedType);
   return (
     <Container>
       <Row className="mt-2">

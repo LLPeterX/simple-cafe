@@ -18,7 +18,7 @@ const EditProduct = observer(({ show, onHide, currentProduct }) => {
 
   useEffect(() => {
     fetchTypes().then(data => product.setTypes(data));
-    fetchProducts().then((data) => product.setProducts(data.rows));
+    //    fetchProducts(1,999,).then((data) => product.setProducts(data.rows));
   }, [product]);
 
   // При выборе типа продукта из меню меняем заголовок этого меню.
@@ -34,6 +34,19 @@ const EditProduct = observer(({ show, onHide, currentProduct }) => {
   }
 
   const addProduct = () => {
+    // some check
+    if (type.id === 0) {
+      alert("Не выбран тип продукта");
+      return;
+    }
+    if (!file || file.length < 3) {
+      alert("Не выбрано или неверное имя файла изображения");
+      return;
+    }
+    if (!description || description.trim().length < 10) {
+      alert("Не заполнено описание");
+      return;
+    }
     console.log(`ADD PRODUCT: ${name} ty=${type.id} pr=${price} veg=${isVegan} a=${isAvailable} file=${file} descr=${description}`);
     const formData = new FormData();
     formData.append('name', name);
@@ -95,10 +108,10 @@ const EditProduct = observer(({ show, onHide, currentProduct }) => {
             />
           </InputGroup>
 
-          <Form.Group className="mt-2" controlId="checkVegan">
+          <Form.Group className="mt-2">
             <Form.Check type="checkbox" label="Вегетарианское"
               checked={isVegan}
-              onChange={() => setVegan(isVegan)}
+              onChange={(e) => setVegan(e.target.checked)}
             />
           </Form.Group>
 

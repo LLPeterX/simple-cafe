@@ -21,7 +21,7 @@ export const createProduct = async (product) => {
 
 };
 // Получение всего списка типов продуктов
-export const fetchProducts = async (page = 1, limit = 3, productTypeId, vegan, available) => {
+export const fetchProducts = async (page, limit, productTypeId, vegan, available) => {
   let options = { page, limit };
   if (productTypeId) {
     options.productTypeId = productTypeId;
