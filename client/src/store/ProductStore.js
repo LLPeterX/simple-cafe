@@ -27,9 +27,11 @@ export default class ProductStore {
 
   setSelectedType(type) {
     this._selectedType = type;
+    this.setPage(1);
   }
   setVegan(v) {
     this._vegan = v;
+    this.setPage(1);
   }
 
   setPage(n) {

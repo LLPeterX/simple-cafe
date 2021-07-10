@@ -24,11 +24,11 @@ const Shop = observer(() => {
   useEffect(() => {
     fetchTypes().then(data => product.setTypes(data));
     fetchProducts(product.page, product.limit, product.selectedType.id, product.vegan, product.available)
-      .then((data) => { // fetchProducts(page, limit, vegan, available)
+      .then((data) => { // fetchProducts(page, limit, productTypeId, vegan, available)
         product.setProducts(data.rows);
         product.setTotalCount(data.count);
       });
-  }, [product.page, product.selectedType, product.vegan, product.available]);
+  }, [product.page, product.selectedType, product.vegan]);
 
   return (
     <Container>
