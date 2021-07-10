@@ -6,13 +6,29 @@ import TypeBar from '../components/TypeBar';
 import FiltersBar from '../components/FiltersBar';
 import { Context } from '../index'
 import { fetchTypes, fetchProducts } from '../http/productAPI';
+import ProductPaginator from '../components/ProductPaginator';
 
 const Shop = observer(() => {
   const { product } = useContext(Context);
+  // только один раз при первой загрузке магазина
+  // useEffect(() => {
+  //   fetchTypes().then(data => product.setTypes(data));
+  //   fetchProducts(product.page, product.limit, null, null, null).then((data) => { // fetchProducts(page, limit, typeId, vegan, available)
+  //     product.setProducts(data.rows);
+  //     product.setTotalCount(data.count);
+  //   }
+  //   );
+  // }, []);
+
+
   useEffect(() => {
     fetchTypes().then(data => product.setTypes(data));
-    fetchProducts().then((data) => product.setProducts(data.rows));
-  }, [product]);
+    fetchProducts(product.page, product.limit, product.selectedType.id, product.vegan, product.available)
+      .then((data) => { // fetchProducts(page, limit, vegan, available)
+        product.setProducts(data.rows);
+        product.setTotalCount(data.count);
+      });
+  }, [product.page, product.selectedType, product.vegan, product.available]);
 
   return (
     <Container>
@@ -23,6 +39,7 @@ const Shop = observer(() => {
         <Col md={9}>
           <FiltersBar />
           <ProductList />
+          <ProductPaginator />
         </Col>
       </Row>
 

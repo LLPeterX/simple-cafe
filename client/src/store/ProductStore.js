@@ -13,7 +13,12 @@ export default class ProductStore {
   }
 
   setTypes(types) {
-    this._types = types;
+    if (!types.find(t => t.id === 0)) {
+      //types.unshift({ id: 0, name: "Все" });
+      this._types = [{ id: 0, name: "Все" }, ...types];
+    } else {
+      this._types = types;
+    }
   }
 
   setProducts(products) {

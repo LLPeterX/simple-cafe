@@ -7,6 +7,7 @@ import ProductItem from "./ProductItem";
 
 const ProductList = observer(() => {
   const { product } = React.useContext(Context);
+  console.log(`PodList count=${product.products.length} TotCount=${product.totalCount} limit=${product.limit}`);
   return (
     <Row className="d-flex">
       {

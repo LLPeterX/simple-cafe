@@ -21,8 +21,19 @@ export const createProduct = async (product) => {
 
 };
 // Получение всего списка типов продуктов
-export const fetchProducts = async () => {
-  const { data } = await $host.get('api/product');
+export const fetchProducts = async (page = 1, limit = 3, productTypeId, vegan, available) => {
+  let options = { page, limit };
+  if (productTypeId) {
+    options.productTypeId = productTypeId;
+  }
+  if (vegan) {
+    options.vegan = 1;
+  }
+  if (available) {
+    options.available = 1;
+  }
+  console.log('fetch prods with ops', options);
+  const { data } = await $host.get('api/product', { params: options });
   return data;
 };
 
