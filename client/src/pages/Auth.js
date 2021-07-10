@@ -19,7 +19,6 @@ const Auth = observer(() => {
 
   const handleLogin = async () => {
     try {
-      //      let data;
       if (isLogin) {
         await login(email, password);
       } else {
@@ -29,7 +28,6 @@ const Auth = observer(() => {
       user.setAuth(true);
       history.push(SHOP_ROUTE);
     } catch (e) {
-      console.log('login error:', e);
       alert(e.response.data.message);
     }
 

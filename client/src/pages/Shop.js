@@ -28,7 +28,7 @@ const Shop = observer(() => {
         product.setProducts(data.rows);
         product.setTotalCount(data.count);
       });
-  }, [product.page, product.selectedType, product.vegan]);
+  }, [product, product.page, product.selectedType, product.vegan]);
 
   return (
     <Container>

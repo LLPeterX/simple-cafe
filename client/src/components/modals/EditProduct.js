@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Modal, Button, Form, InputGroup, Dropdown } from 'react-bootstrap'
 import { Context } from "../../index"
-import { fetchTypes, fetchProducts, createProduct } from '../../http/productAPI';
+import { fetchTypes, createProduct } from '../../http/productAPI';
 import { observer } from 'mobx-react-lite';
 
 
@@ -12,13 +12,13 @@ const EditProduct = observer(({ show, onHide, currentProduct }) => {
   const [isAvailable, setAvailable] = useState(true);
   const [type, setType] = useState({ id: 0, name: "Выберите тип блюда" });
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(0.00);
+  const [price, setPrice] = useState("0.00");
   const [name, setName] = useState("");
   const [file, setFile] = useState("");
 
   useEffect(() => {
     fetchTypes().then(data => product.setTypes(data));
-    //    fetchProducts(1,999,).then((data) => product.setProducts(data.rows));
+    //    fetchProducts(1,999,).then((data) => product.setProducts(data.rows)); // не нужно
   }, [product]);
 
   // При выборе типа продукта из меню меняем заголовок этого меню.
@@ -29,12 +29,21 @@ const EditProduct = observer(({ show, onHide, currentProduct }) => {
     product.setSelectedType(type);
   }
 
+  // обработчик выбора файла. Т.к. это массив, берем первый элемент
   const selectFile = (e) => {
     setFile(e.target.files[0]);
   }
 
+  // обработчик ввода цены. Разрешены символы [0-9.]
+  const handlePrice = (e) => {
+    let priceValue = e.target.value;
+    priceValue = priceValue.replace(/[^0-9./]/g, '');
+    setPrice(priceValue);
+    // 
+  }
+
   const addProduct = () => {
-    // some check
+    // проверки введенных данных
     if (type.id === 0) {
       alert("Не выбран тип продукта");
       return;
@@ -51,14 +60,14 @@ const EditProduct = observer(({ show, onHide, currentProduct }) => {
     const formData = new FormData();
     formData.append('name', name);
     formData.append('productTypeId', Number(type.id)); // или product.selectedType.id
-    formData.append('price', price);
+    formData.append('price', +price);
     formData.append('rating', 5);
     formData.append('img', file);
     formData.append('vegan', Number(isVegan));
     formData.append('available', Number(isAvailable));
     // description в отдельной таблице
     createProduct(formData).then(data => {
-      console.log('prduct added', data);
+      //console.log('prduct added', data);
       onHide();
     })
   }
@@ -104,7 +113,7 @@ const EditProduct = observer(({ show, onHide, currentProduct }) => {
               aria-label="price"
               aria-describedby="price"
               value={price}
-              onChange={(e) => setPrice(Number(e.target.value))}
+              onChange={handlePrice}
             />
           </InputGroup>
 

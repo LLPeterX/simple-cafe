@@ -32,7 +32,6 @@ export const fetchProducts = async (page, limit, productTypeId, vegan, available
   if (available) {
     options.available = 1;
   }
-  console.log('fetch prods with ops', options);
   const { data } = await $host.get('api/product', { params: options });
   return data;
 };

@@ -15,20 +15,19 @@ const Admin = () => {
   useEffect(() => {
     fetchTypes().then(data => {
       product.setTypes(data);
-      product.setSelectedType({});
+      product.setSelectedType(product.defaultType); // all products
     }
     );
     // fetchProducts(page = 1, limit = 3, productTypeId, vegan, available)
+    // здесь нет пагинации - выводим все
     fetchProducts(1, 999, 0, null, null).then((data) => product.setProducts(data.rows));
-  }, [product.products, product.types]);
+  }, [product, product.products.length, product.types.length]);
   // Косяк: при вызове обновления страницы product очищается - WTF?
   // const hideTypeModal = () => {
   //   setTypeModalVisible(false);
   //   window.location.reload(); // тут все данные исчезают
   // }
 
-  // const hideProductModal = () => setProductModalVisible(false);
-  console.log('Admin prod', product.products.length, 'sel=', product.selectedType);
   return (
     <Container>
       <Row className="mt-2">
