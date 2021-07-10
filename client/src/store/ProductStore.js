@@ -4,8 +4,11 @@ export default class ProductStore {
   constructor() {
     this._types = [];
     this._products = [];
-    this._selectedType = {};
-    this._vegan = 0;
+    this._selectedType = {}; // объект выбранного типа. Из него берем id => productTypeId
+    this._vegan = 0; // текущий фильтр "только вегетарианские блюда"
+    this._page = 1; // текущая страница
+    this._totalCount = 0; // число товаров, доступных по данному запросу
+    this._limit = 3; // количество продуктов, отображаемых на странице
     makeAutoObservable(this);
   }
 
@@ -24,6 +27,18 @@ export default class ProductStore {
     this._vegan = v;
   }
 
+  setPage(n) {
+    this._page = n;
+  }
+
+  setTotalCount(n) {
+    this._totalCount = n;
+  }
+
+  setLimit(n) {
+    this._limit = n;
+  }
+
   get types() {
     return this._types;
   }
@@ -38,6 +53,18 @@ export default class ProductStore {
 
   get vegan() {
     return this._vegan;
+  }
+
+  get page() {
+    return this._page;
+  }
+
+  get totalCount() {
+    return this._totalCount;
+  }
+
+  get limit() {
+    return this._limit;
   }
 
 }
